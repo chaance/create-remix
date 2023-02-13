@@ -1,5 +1,6 @@
 {
 	"name": "@chance/create-remix",
+	"private": false,
 	"version": "0.0.1",
 	"description": "Starter template for new TypeScript packages",
 	"type": "module",
@@ -73,6 +74,7 @@
 		}
 	},
 	"publishConfig": {
+		"public": true,
 		"types": "./dist/create-remix.d.ts",
 		"exports": {
 			".": {
