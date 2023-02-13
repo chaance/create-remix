@@ -74,7 +74,7 @@
 		}
 	},
 	"publishConfig": {
-		"private": false,
+		"access": "public",
 		"types": "./dist/create-remix.d.ts",
 		"exports": {
 			".": {
