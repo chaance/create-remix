@@ -19,6 +19,7 @@
 	},
 	"license": "MIT",
 	"files": [
+		"create-remix.mjs",
 		"dist",
 		"src",
 		"README.md",
