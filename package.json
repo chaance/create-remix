@@ -1,7 +1,7 @@
 {
 	"name": "@chance/create-remix",
 	"private": false,
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "Starter template for new TypeScript packages",
 	"type": "module",
 	"bin": {
