@@ -1,5 +1,8 @@
 import fs from "node:fs";
 
+export const sleep = (ms: number) =>
+	new Promise<void>((resolve) => setTimeout(resolve, ms));
+
 export const identity = <V>(v: V) => v;
 
 export function strip(str: string) {
@@ -13,14 +16,6 @@ export function strip(str: string) {
 
 export function getRandomItem<Arr extends any[]>(arr: Arr): Arr[number] {
 	return arr[Math.floor(arr.length * Math.random())];
-}
-
-export function randomBetween(min: number, max: number) {
-	return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-export function sleep(ms: number) {
-	return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export function reverse<T>(arr: T[]): T[] {
