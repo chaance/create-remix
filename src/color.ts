@@ -1,3 +1,4 @@
+import process from "node:process";
 import * as Chalk from "chalk";
 import { identity } from "./utils";
 
@@ -45,7 +46,9 @@ export const color = {
 	gray: safe(chalk.gray),
 	dim: safe(chalk.dim),
 	reset: safe(chalk.reset),
+	inverse: safe(chalk.inverse),
 	hex: (color: string) => safe(chalk.hex(color)),
+	underline: chalk.underline,
 };
 
 function safe(style: Chalk.ChalkInstance) {

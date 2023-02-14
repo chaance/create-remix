@@ -1,7 +1,8 @@
+import process from "node:process";
 import os from "node:os";
 import EventEmitter from "node:events";
 import readline, { type Key as ActionKey } from "node:readline";
-import color from "chalk";
+import { color } from "./color.js";
 import { beep, erase, cursor } from "sisteransi";
 import { strip, identity } from "./utils.js";
 

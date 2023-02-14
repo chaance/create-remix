@@ -1,3 +1,4 @@
+import process from "node:process";
 import url from "node:url";
 import fs from "node:fs";
 import fse from "fs-extra";

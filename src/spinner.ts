@@ -1,3 +1,4 @@
+import process from "node:process";
 import readline from "node:readline";
 import { color } from "./color.js";
 import { createLogUpdate } from "log-update";

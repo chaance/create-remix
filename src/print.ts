@@ -1,3 +1,4 @@
+import process from "node:process";
 import { color } from "./color.js";
 
 export let stdout = process.stdout;
