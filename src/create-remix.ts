@@ -19,7 +19,7 @@ import {
 	sleep,
 	strip,
 } from "./utils.js";
-import { renderLoadingIndicator } from "./spinner.js";
+import { renderLoadingIndicator } from "./loading-indicator.js";
 import {
 	createTemplate,
 	CreateTemplateError,
