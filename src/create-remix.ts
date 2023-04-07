@@ -231,52 +231,53 @@ export async function projectName(ctx: Context) {
 
 export async function template(ctx: Context) {
 	if (!ctx.template) {
-		let { how } = await ctx.prompt({
-			name: "how",
-			type: "select",
-			label: title("how"),
-			message: "How would you like to start your new project?",
-			initial: "quick",
-			choices: [
-				{ value: "quick", label: "Quick start" },
-				{ value: "template", label: "Use a template" },
-			],
-		});
-		ctx.how = how;
-		let temp: string | undefined;
-		if (how === "template") {
-			// ({ temp } = await ctx.prompt({
-			// 	name: "temp",
-			// 	type: "text",
-			// 	label: title("temp"),
-			// 	message: "Enter the template you'd like to use",
-			// }));
-			({ temp } = await ctx.prompt({
-				name: "temp",
-				type: "select",
-				label: title("temp"),
-				message: "Which template would you like to use?",
-				choices: [
-					{ value: "remix", label: "Remix app server" },
-					{ value: "express", label: "Express server" },
-					{
-						value: "custom",
-						label: "Custom template",
-						hint: "see `remix --template --help for details",
-					},
-				],
-				// message: "Enter the template you'd like to use",
-			}));
-			if (temp === "custom") {
-				({ temp } = await ctx.prompt({
-					name: "temp",
-					type: "text",
-					label: title("temp"),
-					message: "Enter the template you'd like to use",
-				}));
-			}
-		}
-		ctx.template = temp ?? "remix";
+		// let { how } = await ctx.prompt({
+		// 	name: "how",
+		// 	type: "select",
+		// 	label: title("how"),
+		// 	message: "How would you like to start your new project?",
+		// 	initial: "quick",
+		// 	choices: [
+		// 		{ value: "quick", label: "Quick start" },
+		// 		{ value: "template", label: "Use a template" },
+		// 	],
+		// });
+		// ctx.how = how;
+		// let temp: string | undefined;
+		// if (how === "template") {
+		// 	// ({ temp } = await ctx.prompt({
+		// 	// 	name: "temp",
+		// 	// 	type: "text",
+		// 	// 	label: title("temp"),
+		// 	// 	message: "Enter the template you'd like to use",
+		// 	// }));
+		// 	({ temp } = await ctx.prompt({
+		// 		name: "temp",
+		// 		type: "select",
+		// 		label: title("temp"),
+		// 		message: "Which template would you like to use?",
+		// 		choices: [
+		// 			{ value: "remix", label: "Remix app server" },
+		// 			{ value: "express", label: "Express server" },
+		// 			{
+		// 				value: "custom",
+		// 				label: "Custom template",
+		// 				hint: "see `remix --template --help for details",
+		// 			},
+		// 		],
+		// 		// message: "Enter the template you'd like to use",
+		// 	}));
+		// 	if (temp === "custom") {
+		// 		({ temp } = await ctx.prompt({
+		// 			name: "temp",
+		// 			type: "text",
+		// 			label: title("temp"),
+		// 			message: "Enter the template you'd like to use",
+		// 		}));
+		// 	}
+		// }
+		// ctx.template = temp ?? "remix";
+		ctx.template = "remix";
 	} else {
 		info(
 			"temp",
