@@ -1,7 +1,11 @@
+// Adapted from https://github.com/withastro/cli-kit
+// MIT License Copyright (c) 2022 Nate Moore
+// https://github.com/withastro/cli-kit/tree/main/src/prompt
 import { cursor, erase } from "sisteransi";
-import { Prompt, type PromptOptions } from "./prompt.js";
-import { type SelectChoice } from "./select.js";
-import { clear, color, strip, type ActionKey } from "./utils.js";
+import { Prompt, type PromptOptions } from "./prompts-prompt-base.js";
+import { type SelectChoice } from "./prompts-select.js";
+import { strip, clear, type ActionKey } from "./utils.js";
+import { color } from "./color.js";
 
 export interface MultiSelectPromptOptions<
 	Choices extends Readonly<Readonly<SelectChoice>[]>

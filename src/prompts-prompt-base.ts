@@ -1,8 +1,12 @@
+// Adapted from https://github.com/withastro/cli-kit
+// MIT License Copyright (c) 2022 Nate Moore
+// https://github.com/withastro/cli-kit/tree/main/src/prompt
 import process from "node:process";
 import EventEmitter from "node:events";
 import readline from "node:readline";
 import { beep, cursor } from "sisteransi";
-import { action, color, type ActionKey } from "./utils.js";
+import { action, type ActionKey } from "./utils.js";
+import { color } from "./color.js";
 
 export class Prompt extends EventEmitter {
 	firstRender: boolean;

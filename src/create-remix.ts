@@ -239,18 +239,42 @@ export async function template(ctx: Context) {
 			initial: "quick",
 			choices: [
 				{ value: "quick", label: "Quick start" },
-				{ value: "other", label: "Use a template" },
+				{ value: "template", label: "Use a template" },
 			],
 		});
 		ctx.how = how;
 		let temp: string | undefined;
-		if (how !== "quick") {
+		if (how === "template") {
+			// ({ temp } = await ctx.prompt({
+			// 	name: "temp",
+			// 	type: "text",
+			// 	label: title("temp"),
+			// 	message: "Enter the template you'd like to use",
+			// }));
 			({ temp } = await ctx.prompt({
 				name: "temp",
-				type: "text",
+				type: "select",
 				label: title("temp"),
-				message: "Enter the template you'd like to use",
+				message: "Which template would you like to use?",
+				choices: [
+					{ value: "remix", label: "Remix app server" },
+					{ value: "express", label: "Express server" },
+					{
+						value: "custom",
+						label: "Custom template",
+						hint: "see `remix --template --help for details",
+					},
+				],
+				// message: "Enter the template you'd like to use",
 			}));
+			if (temp === "custom") {
+				({ temp } = await ctx.prompt({
+					name: "temp",
+					type: "text",
+					label: title("temp"),
+					message: "Enter the template you'd like to use",
+				}));
+			}
 		}
 		ctx.template = temp ?? "remix";
 	} else {

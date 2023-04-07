@@ -1,18 +1,16 @@
 import process from "node:process";
-import { identity } from "./utils.js";
+import { ConfirmPrompt, type ConfirmPromptOptions } from "./prompts-confirm.js";
 import {
-	ConfirmPrompt,
-	MultiSelectPrompt,
 	SelectPrompt,
-	TextPrompt,
-} from "./prompts/index.js";
-import type {
-	ConfirmPromptOptions,
-	MultiSelectPromptOptions,
-	TextPromptOptions,
-	SelectPromptOptions,
-	SelectChoice,
-} from "./prompts/index.js";
+	type SelectPromptOptions,
+	type SelectChoice,
+} from "./prompts-select.js";
+import {
+	MultiSelectPrompt,
+	type MultiSelectPromptOptions,
+} from "./prompts-multi-select.js";
+import { TextPrompt, type TextPromptOptions } from "./prompts-text.js";
+import { identity } from "./utils.js";
 
 const prompts = {
 	text: (args: TextPromptOptions) => toPrompt(TextPrompt, args),

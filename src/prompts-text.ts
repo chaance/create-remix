@@ -1,13 +1,10 @@
-import { Prompt, type PromptOptions } from "./prompt.js";
+// Adapted from https://github.com/withastro/cli-kit
+// MIT License Copyright (c) 2022 Nate Moore
+// https://github.com/withastro/cli-kit/tree/main/src/prompt
+import { Prompt, type PromptOptions } from "./prompts-prompt-base.js";
 import { cursor, erase } from "sisteransi";
-import {
-	clear,
-	color,
-	lines,
-	strip,
-	useAscii,
-	type ActionKey,
-} from "./utils.js";
+import { color } from "./color.js";
+import { strip, clear, lines, useAscii, type ActionKey } from "./utils.js";
 
 export interface TextPromptOptions extends PromptOptions {
 	label: string;
