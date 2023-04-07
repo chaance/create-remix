@@ -2,6 +2,7 @@ import process from "node:process";
 import { exec } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import stripAnsi from "strip-ansi";
 import rm from "rimraf";
 import { execa } from "execa";
@@ -44,7 +45,11 @@ async function main() {
 	let argv = process.argv.slice(2).filter((arg) => arg !== "--");
 	let ctx = await getContext(argv);
 	if (ctx.help) {
-		printHelp();
+		printHelp(ctx);
+		return;
+	}
+	if (ctx.versionRequested) {
+		printVersion(ctx);
 		return;
 	}
 
@@ -69,7 +74,7 @@ async function getContext(argv: string[]): Promise<Context> {
 		{
 			"--debug": Boolean,
 			"--remix-version": String,
-			"--r": "--remix-version",
+			"-v": "--remix-version",
 			"--template": String,
 			"--token": String,
 			"--yes": Boolean,
@@ -85,8 +90,8 @@ async function getContext(argv: string[]): Promise<Context> {
 			"--dry": Boolean,
 			"--help": Boolean,
 			"-h": "--help",
-			"--version": String,
-			"--v": "--version",
+			"--version": Boolean,
+			"--V": "--version",
 			"--no-color": Boolean,
 			"--no-motion": Boolean,
 		},
@@ -114,6 +119,7 @@ async function getContext(argv: string[]): Promise<Context> {
 		"--dry": dryRun,
 		"--no": no,
 		"--yes": yes,
+		"--version": versionRequested,
 	} = flags;
 	let projectName = cwd;
 
@@ -148,6 +154,7 @@ async function getContext(argv: string[]): Promise<Context> {
 		typescript: typescript ?? (noTypescript ? false : undefined),
 		username,
 		yes,
+		versionRequested,
 	};
 	return context;
 }
@@ -174,6 +181,7 @@ interface Context {
 	typescript?: boolean;
 	username: string;
 	yes?: boolean;
+	versionRequested?: boolean;
 }
 
 export async function intro(ctx: Context) {
@@ -687,7 +695,9 @@ function getGreetingName() {
 	});
 }
 
-function printHelp() {
+// TODO: Add context-specific help text. For example,
+// `create-remix --template --help` should only list available template options
+function printHelp(ctx: Context) {
 	// prettier-ignore
 	let output = `
 ${title("create-remix")}
@@ -703,7 +713,7 @@ ${color.arg("projectDir")}          ${color.dim(`The Remix project directory`)}
 ${color.heading("Options")}:
 
 ${color.arg("--help, -h")}          ${color.dim(`Print this help message and exit`)}
-${color.arg("--version, -v")}       ${color.dim(`Print the CLI version and exit`)}
+${color.arg("--version, -V")}       ${color.dim(`Print the CLI version and exit`)}
 ${color.arg("--no-color")}          ${color.dim(`Disable ANSI colors in console output`)}
 ${color.arg("--no-motion")}         ${color.dim(`Disable animations in console output`)}
 
@@ -714,7 +724,7 @@ ${color.arg("--[no-]typescript")}   ${color.dim(`Whether or not to use TypeScrip
 		    for official Remix templates.`)}
 ${color.arg("--yes, -y")}           ${color.dim(`Skip all option prompts and run setup.`)}
 ${color.arg("--no, -n")}            ${color.dim(`Skip all option prompts and skip setup.`)}
-${color.arg("--remix-version")}     ${color.dim(`The version of Remix to use`)}
+${color.arg("--remix-version, -v")}     ${color.dim(`The version of Remix to use`)}
 
 ${color.heading("Creating a new project")}:
 
@@ -754,6 +764,31 @@ ${color.dim("$")} ${color.greenBright("remix")} init
 `;
 
 	log(output);
+}
+
+function printVersion(ctx: Context) {
+	let dirname = path.dirname(fileURLToPath(import.meta.url));
+	let rootDirectory = path.resolve(dirname, "..");
+	let packageJsonContents: string;
+	let packageJson: { version: string };
+	try {
+		packageJsonContents = fs.readFileSync(
+			path.join(rootDirectory, "package.json"),
+			"utf-8"
+		);
+	} catch (err) {
+		throw Error(
+			"There was an error reading the package.json file. Please open an issue at "
+		);
+	}
+	try {
+		packageJson = JSON.parse(packageJsonContents.toString());
+	} catch (err) {
+		throw Error(
+			"There was an error parsing the package.json file. Please open an issue at "
+		);
+	}
+	log(`create-remix v${packageJson.version}`);
 }
 
 function align(text: string, dir: "start" | "end" | "center", len: number) {
