@@ -123,6 +123,23 @@ async function getContext(argv: string[]): Promise<Context> {
 	} = flags;
 	let projectName = cwd;
 
+	if (selectedRemixVersion) {
+		if (semver.valid(selectedRemixVersion)) {
+			// do nothing, we're good
+		} else if (semver.coerce(selectedRemixVersion)) {
+			selectedRemixVersion = semver.coerce(selectedRemixVersion)!.version;
+		} else {
+			log(
+				`\n${color.warning(
+					`${selectedRemixVersion} is an invalid version specifier. Using Remix v${latestRemixVersion}.`
+				)}`
+			);
+			selectedRemixVersion = undefined;
+		}
+		// TODO: Probably want to check to see if this version of Remix actually
+		// exists!
+	}
+
 	if (no) {
 		yes = false;
 		if (install == undefined) install = false;
