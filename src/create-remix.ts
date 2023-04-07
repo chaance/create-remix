@@ -32,7 +32,7 @@ import {
 } from "./detect-package-manager.js";
 import { getLatestRemixVersion } from "./remix-version.js";
 import { error as logError, info, log, stdout } from "./print.js";
-import { generateProjectName, toValidProjectName } from "./project-name.js";
+import { toValidProjectName } from "./project-name.js";
 
 // Please also update the installation instructions in the docs at if you make
 // any changes to the flow or wording here.
@@ -202,7 +202,8 @@ export async function projectName(ctx: Context) {
 			type: "text",
 			label: title("dir"),
 			message: "Where should we create your new project?",
-			initial: `./${generateProjectName()}`,
+			initial: "./my-app",
+			// initial: `./${generateProjectName()}`,
 			validate(value: string) {
 				if (!isEmpty(value)) {
 					return `Directory is not empty!`;
