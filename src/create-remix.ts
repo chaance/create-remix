@@ -1,3 +1,5 @@
+// Inspired by (and liberally adapted from) https://github.com/withastro/cli-kit
+// I told Fred I wanted to steal his lovely CLI and he said "please do".
 import process from "node:process";
 import { exec } from "node:child_process";
 import fs from "node:fs";
@@ -14,10 +16,14 @@ import { prompt } from "./prompt.js";
 import { color } from "./color.js";
 import {
 	ensureDirectory,
+	error as logError,
 	fileExists,
+	info,
 	isValidJsonObject,
+	log,
 	pathContains,
 	sleep,
+	stdout,
 	strip,
 } from "./utils.js";
 import { renderLoadingIndicator } from "./loading-indicator.js";
@@ -32,7 +38,6 @@ import {
 	type PackageManager,
 } from "./detect-package-manager.js";
 import { getLatestRemixVersion } from "./remix-version.js";
-import { error as logError, info, log, stdout } from "./print.js";
 import { toValidProjectName } from "./project-name.js";
 
 // Please also update the installation instructions in the docs at if you make

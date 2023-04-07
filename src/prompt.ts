@@ -1,3 +1,6 @@
+// Adapted from https://github.com/withastro/cli-kit
+// MIT License Copyright (c) 2022 Nate Moore
+// https://github.com/withastro/cli-kit/tree/main/src/prompt
 import process from "node:process";
 import { ConfirmPrompt, type ConfirmPromptOptions } from "./prompts-confirm.js";
 import {

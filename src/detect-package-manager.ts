@@ -1,3 +1,5 @@
+// NOTE: This might be mediocre, but good enough probably.
+
 import path from "node:path";
 import { fileExists } from "./utils.js";
 
